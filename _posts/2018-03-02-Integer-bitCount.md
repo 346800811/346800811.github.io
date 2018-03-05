@@ -9,9 +9,9 @@ tags:  Java 源码 Integer
 {:toc}
 
 
-Java源码：```java.lang.Integer.bitCount(int i)```。
+Java源码分析：```java.lang.Integer.bitCount(int i)```。
 
-### 源代码如下
+## 源代码：
 
 ```java
 /**
@@ -35,7 +35,7 @@ public static int bitCount(int i) {
 }
 ```
 
-### 思路
+## 思路：
 大致的思路如下：  
 ```
 1//计算每两位有几个1
