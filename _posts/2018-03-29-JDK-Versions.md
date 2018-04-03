@@ -9,7 +9,7 @@ tags:  Java
 {:toc}
 
 
-Java源码分析：```java.lang.Integer.bitCount(int i)```。
+Java 各版本新增的主要特性
 
 
 
@@ -182,7 +182,7 @@ Stream<Integer> s = Optional.of(1).stream();
 
 7. 私有接口方法  
 使用 Java 9，您可以向接口添加私有辅助方法来解决此问题：
-```Java
+```java
 public interface MyInterface {
     void normalInterfaceMethod();
     default void interfaceMethodWithDefault() {
@@ -201,7 +201,7 @@ public interface MyInterface {
 
 8. HTTP/2  
 Java 9 中有新的方式来处理 HTTP 调用。这个迟到的特性用于代替老旧的 `HttpURLConnection` API，并提供对 WebSocket 和 HTTP/2 的支持。注意：新的 HttpClient API 在 Java 9 中以所谓的孵化器模块交付。也就是说，这套 API 不能保证 100% 完成。不过你可以在 Java 9 中开始使用这套 API：
-```Java
+```java
 HttpClient client = HttpClient.newHttpClient();
 HttpRequest req = HttpRequest.newBuilder(URI.create("http://www.google.com"))
     .header("User-Agent", "Java").GET().build();
