@@ -271,20 +271,20 @@ inst_group=oinstall
 -A INPUT -p tcp -m state -state NEW -m tcp --dport 1521 -j ACCEPT
 ```
 
+3. 创建表空间及用户  
+```
+    创建临时表空间 user_temp：
+    SQL> create temporary tablespace user_temp tempfile '/opt/oradata/orcl/user_temp.dbf' size 50m autoextend on next 50m maxsize 20480m extent management local;
 
-3. 创建表空间及用户
-创建临时表空间 user_temp：
-SQL> create temporary tablespace user_temp tempfile '/opt/oradata/orcl/user_temp.dbf' size 50m autoextend on next 50m maxsize 20480m extent management local;
+    创建数据表空间 ISC：
+    SQL> create tablespace ISC logging datafile '/opt/oradata/orcl/ISC.dbf' size 50m autoextend on next 50m maxsize 20480m extent management local;
 
-创建数据表空间 ISC：
-SQL> create tablespace ISC logging datafile '/opt/oradata/orcl/ISC.dbf' size 50m autoextend on next 50m maxsize 20480m extent management local;
+    创建用户并指定表空间 ISC：
+    SQL> create user ISC identified by isc default tablespace ISC temporary tablespace user_temp;
 
-创建用户并指定表空间 ISC：
-SQL> create user ISC identified by isc default tablespace ISC temporary tablespace user_temp;
-
-用户授权：
-SQL> grant connect,resource,dba to ISC;
-
+    用户授权：
+    SQL> grant connect,resource,dba to ISC;
+```
 
 ## 相关命令
 
@@ -312,6 +312,7 @@ netstat -an | grep 23
 
 5. 关闭防火墙和selinux  
 Redhat使用了SELinux来增强安全，关闭的办法为：  
+```
 (1) 永久有效：  
 修改 /etc/selinux/config 文件中的 SELINUX="" 为 disabled ，然后重启。  
 (2) 即时生效：  
@@ -330,6 +331,7 @@ a. 防火墙还需要关闭ipv6的防火墙：
 chkconfig ip6tables off  
 并且可以通过如下命令查看状态：  
 chkconfig --list iptables  
+```  
 
 6. 去掉DNS  
 连接数据库过慢：  
