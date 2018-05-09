@@ -110,19 +110,19 @@ session    required   pam_limits.so
 
 4. 创建目录  
 ```
-[root]# mkdir -p /opt/ora/
-[root]# chown -R oracle:oinstall /opt/ora/
-[root]# chmod -R 775 /opt/ora/
+    [root]# mkdir -p /opt/ora/
+    [root]# chown -R oracle:oinstall /opt/ora/
+    [root]# chmod -R 775 /opt/ora/
 
-[root]# mkdir /opt/oraInventory
-[root]# chown -R oracle:oinstall /opt/oraInventory
-[root]# chmod -R 775 /opt/oraInventory
+    [root]# mkdir /opt/oraInventory
+    [root]# chown -R oracle:oinstall /opt/oraInventory
+    [root]# chmod -R 775 /opt/oraInventory
 
-[root]# mkdir /opt/oradata
-。。。授权同上
+    [root]# mkdir /opt/oradata
+    。。。授权同上
 
-[root]# mkdir /opt/fast_recovery_area
-。。。授权同上
+    [root]# mkdir /opt/fast_recovery_area
+    。。。授权同上
 ```  
 
 5. 配置oracle用户环境  
@@ -132,23 +132,23 @@ session    required   pam_limits.so
 ```  
 添加：  
 ```
-umask 022
-export ORACLE_BASE=/opt/ora
-export ORACLE_SID=orcl
+    umask 022
+    export ORACLE_BASE=/opt/ora
+    export ORACLE_SID=orcl
 
-export ORACLE_HOME=$ORACLE_BASE/product/11.2.0/db_1
-export SQLPATH=/home/oracle/labs
-export PATH=$ORACLE_HOME/bin:$PATH
+    export ORACLE_HOME=$ORACLE_BASE/product/11.2.0/db_1
+    export SQLPATH=/home/oracle/labs
+    export PATH=$ORACLE_HOME/bin:$PATH
 ```  
 执行： ```[oracle]$ . ./.bash_profile ```  
 在oracle用户下执行下面命令，之后可以重启Linux：  
 ```
-[oracle]$ unset ORACLE_HOME
-[oracle]$ unset TNS_ADMIN
-[oracle]$ ORACLE_BASE=/opt/ora
-[oracle]$ export ORACLE_BASE
-[oracle]$ ORACLE_SID=orcl
-[oracle]$ export ORACLE_SID
+    [oracle]$ unset ORACLE_HOME
+    [oracle]$ unset TNS_ADMIN
+    [oracle]$ ORACLE_BASE=/opt/ora
+    [oracle]$ export ORACLE_BASE
+    [oracle]$ ORACLE_SID=orcl
+    [oracle]$ export ORACLE_SID
 ```  
 
 6. 安装文件更改权限  
@@ -174,62 +174,62 @@ inst_group=oinstall
 2. 编辑 database/response/db_install.rsp  
 编辑文件，参数示例如下：  
 ```
-[oracle]$ cd /opt/database/response/
-[oracle]$ grep -Ev "^$|^#" db_install.rsp
-oracle.install.responseFileVersion=/oracle/install/rspfmt_dbinstall_response_schema_v11_2_0
-oracle.install.option=INSTALL_DB_AND_CONFIG
-ORACLE_HOSTNAME=oracledb
-UNIX_GROUP_NAME=oinstall
-INVENTORY_LOCATION=/opt/oraInventory
-SELECTED_LANGUAGES=en,zh_CN,zh_TW
-ORACLE_HOME=/opt/ora/product/11.2.0/db_1
-ORACLE_BASE=/opt/ora
-oracle.install.db.InstallEdition=EE
-oracle.install.db.isCustomInstall=true
-oracle.install.db.customComponents=oracle.server:11.2.0.1.0,oracle.sysman.ccr:10.2.7.0.0,oracle.xdk:11.2.0.1.0,oracle.rdbms.oci:11.2.0.1.0,oracle.network:11.2.0.1.0,oracle.network.listener:11.2.0.1.0,oracle.rdbms:11.2.0.1.0,oracle.options:11.2.0.1.0,oracle.rdbms.partitioning:11.2.0.1.0,oracle.oraolap:11.2.0.1.0,oracle.rdbms.dm:11.2.0.1.0,oracle.rdbms.dv:11.2.0.1.0,orcle.rdbms.lbac:11.2.0.1.0,oracle.rdbms.rat:11.2.0.1.0
-oracle.install.db.DBA_GROUP=dba
-oracle.install.db.OPER_GROUP=oinstall
-oracle.install.db.CLUSTER_NODES=
-oracle.install.db.config.starterdb.type=GENERAL_PURPOSE
-oracle.install.db.config.starterdb.globalDBName=orcl
-oracle.install.db.config.starterdb.SID=orcl
-oracle.install.db.config.starterdb.characterSet=AL32UTF8
-oracle.install.db.config.starterdb.memoryOption=true
-oracle.install.db.config.starterdb.memoryLimit=512
-oracle.install.db.config.starterdb.installExampleSchemas=false
-oracle.install.db.config.starterdb.enableSecuritySettings=true
-oracle.install.db.config.starterdb.password.ALL=gdtBD123
-oracle.install.db.config.starterdb.password.SYS=
-oracle.install.db.config.starterdb.password.SYSTEM=
-oracle.install.db.config.starterdb.password.SYSMAN=
-oracle.install.db.config.starterdb.password.DBSNMP=
-oracle.install.db.config.starterdb.control=DB_CONTROL
-oracle.install.db.config.starterdb.gridcontrol.gridControlServiceURL=
-oracle.install.db.config.starterdb.dbcontrol.enableEmailNotification=false
-oracle.install.db.config.starterdb.dbcontrol.emailAddress=
-oracle.install.db.config.starterdb.dbcontrol.SMTPServer=
-oracle.install.db.config.starterdb.automatedBackup.enable=false
-oracle.install.db.config.starterdb.automatedBackup.osuid=
-oracle.install.db.config.starterdb.automatedBackup.ospwd=
-oracle.install.db.config.starterdb.storageType=FILE_SYSTEM_STORAGE
-oracle.install.db.config.starterdb.fileSystemStorage.dataLocation=/opt/oradata
-oracle.install.db.config.starterdb.fileSystemStorage.recoveryLocation=/opt/fast_recovery_area
-oracle.install.db.config.asm.diskGroup=
-oracle.install.db.config.asm.ASMSNMPPassword=
-MYORACLESUPPORT_USERNAME=
-MYORACLESUPPORT_PASSWORD=
-SECURITY_UPDATES_VIA_MYORACLESUPPORT=
-DECLINE_SECURITY_UPDATES=true
-PROXY_HOST=
-PROXY_PORT=
-PROXY_USER=
-PROXY_PWD=
+    [oracle]$ cd /opt/database/response/
+    [oracle]$ grep -Ev "^$|^#" db_install.rsp
+    oracle.install.responseFileVersion=/oracle/install/rspfmt_dbinstall_response_schema_v11_2_0
+    oracle.install.option=INSTALL_DB_AND_CONFIG
+    ORACLE_HOSTNAME=oracledb
+    UNIX_GROUP_NAME=oinstall
+    INVENTORY_LOCATION=/opt/oraInventory
+    SELECTED_LANGUAGES=en,zh_CN,zh_TW
+    ORACLE_HOME=/opt/ora/product/11.2.0/db_1
+    ORACLE_BASE=/opt/ora
+    oracle.install.db.InstallEdition=EE
+    oracle.install.db.isCustomInstall=true
+    oracle.install.db.customComponents=oracle.server:11.2.0.1.0,oracle.sysman.ccr:10.2.7.0.0,oracle.xdk:11.2.0.1.0,oracle.rdbms.oci:11.2.0.1.0,oracle.network:11.2.0.1.0,oracle.network.listener:11.2.0.1.0,oracle.rdbms:11.2.0.1.0,oracle.options:11.2.0.1.0,oracle.rdbms.partitioning:11.2.0.1.0,oracle.oraolap:11.2.0.1.0,oracle.rdbms.dm:11.2.0.1.0,oracle.rdbms.dv:11.2.0.1.0,orcle.rdbms.lbac:11.2.0.1.0,oracle.rdbms.rat:11.2.0.1.0
+    oracle.install.db.DBA_GROUP=dba
+    oracle.install.db.OPER_GROUP=oinstall
+    oracle.install.db.CLUSTER_NODES=
+    oracle.install.db.config.starterdb.type=GENERAL_PURPOSE
+    oracle.install.db.config.starterdb.globalDBName=orcl
+    oracle.install.db.config.starterdb.SID=orcl
+    oracle.install.db.config.starterdb.characterSet=AL32UTF8
+    oracle.install.db.config.starterdb.memoryOption=true
+    oracle.install.db.config.starterdb.memoryLimit=512
+    oracle.install.db.config.starterdb.installExampleSchemas=false
+    oracle.install.db.config.starterdb.enableSecuritySettings=true
+    oracle.install.db.config.starterdb.password.ALL=gdtBD123
+    oracle.install.db.config.starterdb.password.SYS=
+    oracle.install.db.config.starterdb.password.SYSTEM=
+    oracle.install.db.config.starterdb.password.SYSMAN=
+    oracle.install.db.config.starterdb.password.DBSNMP=
+    oracle.install.db.config.starterdb.control=DB_CONTROL
+    oracle.install.db.config.starterdb.gridcontrol.gridControlServiceURL=
+    oracle.install.db.config.starterdb.dbcontrol.enableEmailNotification=false
+    oracle.install.db.config.starterdb.dbcontrol.emailAddress=
+    oracle.install.db.config.starterdb.dbcontrol.SMTPServer=
+    oracle.install.db.config.starterdb.automatedBackup.enable=false
+    oracle.install.db.config.starterdb.automatedBackup.osuid=
+    oracle.install.db.config.starterdb.automatedBackup.ospwd=
+    oracle.install.db.config.starterdb.storageType=FILE_SYSTEM_STORAGE
+    oracle.install.db.config.starterdb.fileSystemStorage.dataLocation=/opt/oradata
+    oracle.install.db.config.starterdb.fileSystemStorage.recoveryLocation=/opt/fast_recovery_area
+    oracle.install.db.config.asm.diskGroup=
+    oracle.install.db.config.asm.ASMSNMPPassword=
+    MYORACLESUPPORT_USERNAME=
+    MYORACLESUPPORT_PASSWORD=
+    SECURITY_UPDATES_VIA_MYORACLESUPPORT=
+    DECLINE_SECURITY_UPDATES=true
+    PROXY_HOST=
+    PROXY_PORT=
+    PROXY_USER=
+    PROXY_PWD=
 ```  
 
 3. 执行安装  
 ```
-[oracle]$ cd /opt/database
-[oracle]$ ./runInstaller -silent -ignorePrereq -ignoreSysPrereqs -responseFile /opt/database/response/db_install.rsp
+    [oracle]$ cd /opt/database
+    [oracle]$ ./runInstaller -silent -ignorePrereq -ignoreSysPrereqs -responseFile /opt/database/response/db_install.rsp
 ```  
 等待，若出现提示，则按照提示，使用新窗口root用户执行相应脚本：  
 
@@ -238,29 +238,29 @@ PROXY_PWD=
 1. 启动数据库  
 安装完后数据库可能已经启动了，若未启动，执行下面命令：  
 ```
-[oracle]$ sqlplus / as sysdba
-SQL> startup
+    [oracle]$ sqlplus / as sysdba
+    SQL> startup
 ```  
 
 2. 修改Oracle启动配置文件  
 ```
-[root]# vi /etc/oratab
+    [root]# vi /etc/oratab
 
-#
-orcl:/opt/ora/product/11.2.0/db_1:Y
+    #
+    orcl:/opt/ora/product/11.2.0/db_1:Y
 ```  
 为了让oracle在系统启动时服务自动启动，修改/etc/rc/loacl文件：  
 ```
-[root]# vi /etc/rc.local
+    [root]# vi /etc/rc.local
 
-#!/bin/sh
-#
-# This script will be executed *after* all the other init scripts.
-# You can put your own initialization stuff in here if you don't
-# want to do the full Sys V style init stuff.
+    #!/bin/sh
+    #
+    # This script will be executed *after* all the other init scripts.
+    # You can put your own initialization stuff in here if you don't
+    # want to do the full Sys V style init stuff.
 
-touch /var/lock/subsys/local
-su - oracle -c "/opt/ora/product/11.2.0/db_1/bin/dbstart"
+    touch /var/lock/subsys/local
+    su - oracle -c "/opt/ora/product/11.2.0/db_1/bin/dbstart"
 ```  
 打开防火墙端口：  
 ```
@@ -340,28 +340,28 @@ chkconfig --list iptables
 
 1. oracle用户下执行：  
 ```
-$ sqlplus system/manager @ file.sql 执行sql脚本文件
-$ sqlplus system/manager 登录sqlplus，使用system用户
-$ sqlplus /nolog 以不连接数据库的方式启动sqlplus，启动数据时会用到
-$ lsnrctl status/stop/start oracle的监听器listener状态查看/停止/启动
+    $ sqlplus system/manager @ file.sql 执行sql脚本文件
+    $ sqlplus system/manager 登录sqlplus，使用system用户
+    $ sqlplus /nolog 以不连接数据库的方式启动sqlplus，启动数据时会用到
+    $ lsnrctl status/stop/start oracle的监听器listener状态查看/停止/启动
 
-$ imp system/manager file=/tmp/expfile.dmp log=/tmp/implogfile.log ignore=y fromuser=expuser touser=impuser 用户模式表数据导入，这里我只使用了几个参数，还有好多没有用到的参数，如果没有特别指定值，就使用默认的值。
+    $ imp system/manager file=/tmp/expfile.dmp log=/tmp/implogfile.log ignore=y fromuser=expuser touser=impuser 用户模式表数据导入，这里我只使用了几个参数，还有好多没有用到的参数，如果没有特别指定值，就使用默认的值。
 
-$ exp username/password file=/tmp/expfile.dmp log=/tmp/proV114_exp.log 用户模式表数据导出，这是最简单的导出方法，还有好多参数没有写出来。
+    $ exp username/password file=/tmp/expfile.dmp log=/tmp/proV114_exp.log 用户模式表数据导出，这是最简单的导出方法，还有好多参数没有写出来。
 ```
 
 2. sqlplus下执行：  
 ```
-sqlplus system/manage as sysdba
+    sqlplus system/manage as sysdba
 
-SQL> conn / as sysdba sysdba用户模式连接
-SQL> startup 启动数据库
-SQL> shutdown immediate 立即关闭数据库
-SQL> desc dba_users; 查询dba_users表结构
-SQL> select username from dba_users; 查询当前sid下的所有用户的username
-SQL> select count(*) from username.tablename; 查询tablename表的行数
-SQL> drop user username cascade; 删除名称为username的oracle用户
-SQL> select distinct table_name from user_tab_columns; 查看当前user模式下所有表名
+    SQL> conn / as sysdba sysdba用户模式连接
+    SQL> startup 启动数据库
+    SQL> shutdown immediate 立即关闭数据库
+    SQL> desc dba_users; 查询dba_users表结构
+    SQL> select username from dba_users; 查询当前sid下的所有用户的username
+    SQL> select count(*) from username.tablename; 查询tablename表的行数
+    SQL> drop user username cascade; 删除名称为username的oracle用户
+    SQL> select distinct table_name from user_tab_columns; 查看当前user模式下所有表名
 ```  
 删除连接的用户：  
 ```
