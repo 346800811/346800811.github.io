@@ -108,7 +108,7 @@ session    required   pam_limits.so
     export NLS_LANG=AMERICAN_AMERICA.ZHS16GBK
 ```
 
-4. 创建目录
+4. 创建目录  
 ```
 [root]# mkdir -p /opt/ora/
 [root]# chown -R oracle:oinstall /opt/ora/
@@ -125,12 +125,12 @@ session    required   pam_limits.so
 。。。授权同上
 ```  
 
-5. 配置oracle用户环境
+5. 配置oracle用户环境  
 ```
 [root]# su - oracle
 [oracle]$ vi .bash_profile
 ```  
-添加：
+添加：  
 ```
 umask 022
 export ORACLE_BASE=/opt/ora
@@ -141,7 +141,7 @@ export SQLPATH=/home/oracle/labs
 export PATH=$ORACLE_HOME/bin:$PATH
 ```  
 执行： ```[oracle]$ . ./.bash_profile ```  
-在oracle用户下执行下面命令，之后可以重启Linux：
+在oracle用户下执行下面命令，之后可以重启Linux：  
 ```
 [oracle]$ unset ORACLE_HOME
 [oracle]$ unset TNS_ADMIN
@@ -158,12 +158,13 @@ export PATH=$ORACLE_HOME/bin:$PATH
 ```  
 
 ## 安装Oracle（静默）
+
 1. 创建 /etc/oraInst.loc  
 否则安装时会报错：  
 ```
 SEVERE: [FATAL] [INS-32038] The operating system group specified for central inventory (oraInventory) ownership is invalid.
 ```  
-创建文件并写入两行：
+创建文件并写入两行：  
 ```
 [root]# vi /etc/oraInst.loc
 inventory_loc=/home/oracle/app/oraInventory
@@ -171,7 +172,7 @@ inst_group=oinstall
 ```  
 
 2. 编辑 database/response/db_install.rsp  
-编辑文件，参数示例如下：
+编辑文件，参数示例如下：  
 ```
 [oracle]$ cd /opt/database/response/
 [oracle]$ grep -Ev "^$|^#" db_install.rsp
@@ -224,7 +225,8 @@ PROXY_PORT=
 PROXY_USER=
 PROXY_PWD=
 ```  
-3. 执行安装
+
+3. 执行安装  
 ```
 [oracle]$ cd /opt/database
 [oracle]$ ./runInstaller -silent -ignorePrereq -ignoreSysPrereqs -responseFile /opt/database/response/db_install.rsp
@@ -238,7 +240,7 @@ PROXY_PWD=
 ```
 [oracle]$ sqlplus / as sysdba
 SQL> startup
-```
+```  
 
 2. 修改Oracle启动配置文件  
 ```
@@ -247,7 +249,7 @@ SQL> startup
 #
 orcl:/opt/ora/product/11.2.0/db_1:Y
 ```  
-为了让oracle在系统启动时服务自动启动，修改/etc/rc/loacl文件：
+为了让oracle在系统启动时服务自动启动，修改/etc/rc/loacl文件：  
 ```
 [root]# vi /etc/rc.local
 
@@ -259,11 +261,11 @@ orcl:/opt/ora/product/11.2.0/db_1:Y
 
 touch /var/lock/subsys/local
 su - oracle -c "/opt/ora/product/11.2.0/db_1/bin/dbstart"
-```
+```  
 打开防火墙端口：  
 ```
 [root]# vi /etc/sysconfig/iptables
-```
+```  
 在22端口下面插入一行  
 ```
 -A INPUT -p tcp -m state -state NEW -m tcp --dport 1521 -j ACCEPT
