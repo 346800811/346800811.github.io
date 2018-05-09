@@ -86,7 +86,7 @@ session    required   pam_limits.so
 [root]# vi /etc/profile
 ```  
 添加以下行到文件：  
-
+```
     if [ $USER = "oracle" ]; then
         if [ $SHELL = "/bin/ksh" ]; then
             ulimit -p 16384
@@ -106,7 +106,7 @@ session    required   pam_limits.so
     export PATH=$PATH:$ORACLE_HOME/bin
     export LD_LIBRARY_PATH=$ORACLE_HOME/lib:$LD_LIBRARY_PATH
     export NLS_LANG=AMERICAN_AMERICA.ZHS16GBK
-
+```
 
 4. 创建目录
 ```
