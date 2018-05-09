@@ -86,27 +86,27 @@ session    required   pam_limits.so
 [root]# vi /etc/profile
 ```  
 添加以下行到文件：  
-```
-  if [ $USER = "oracle" ]; then
-	if [ $SHELL = "/bin/ksh" ]; then
-		ulimit -p 16384
-		ulimit -n 65536
-	else
-		ulimit -u 16384 -n 65536
-	fi
-fi
 
-umask 022
-export LC_ALL=zh_CN.gbk
-export LANG=zh_CN.gbk
-export ORACLE_BASE=/opt/ora
-export ORACLE_SID=orcl
-export ORACLE_HOME=$ORACLE_BASE/product/11.2.0/dbhome_1
-export ORACLE_OWNER=oracle
-export PATH=$PATH:$ORACLE_HOME/bin
-export LD_LIBRARY_PATH=$ORACLE_HOME/lib:$LD_LIBRARY_PATH
-export NLS_LANG=AMERICAN_AMERICA.ZHS16GBK
-```  
+    if [ $USER = "oracle" ]; then
+        if [ $SHELL = "/bin/ksh" ]; then
+            ulimit -p 16384
+            ulimit -n 65536
+        else
+            ulimit -u 16384 -n 65536
+        fi
+    fi
+
+    umask 022
+    export LC_ALL=zh_CN.gbk
+    export LANG=zh_CN.gbk
+    export ORACLE_BASE=/opt/ora
+    export ORACLE_SID=orcl
+    export ORACLE_HOME=$ORACLE_BASE/product/11.2.0/dbhome_1
+    export ORACLE_OWNER=oracle
+    export PATH=$PATH:$ORACLE_HOME/bin
+    export LD_LIBRARY_PATH=$ORACLE_HOME/lib:$LD_LIBRARY_PATH
+    export NLS_LANG=AMERICAN_AMERICA.ZHS16GBK
+
 
 4. 创建目录
 ```
@@ -160,7 +160,9 @@ export PATH=$ORACLE_HOME/bin:$PATH
 ## 安装Oracle（静默）
 1. 创建 /etc/oraInst.loc  
 否则安装时会报错：  
-```SEVERE: [FATAL] [INS-32038] The operating system group specified for central inventory (oraInventory) ownership is invalid. ```  
+```
+SEVERE: [FATAL] [INS-32038] The operating system group specified for central inventory (oraInventory) ownership is invalid.
+```  
 创建文件并写入两行：
 ```
 [root]# vi /etc/oraInst.loc
@@ -170,7 +172,58 @@ inst_group=oinstall
 
 2. 编辑 database/response/db_install.rsp  
 编辑文件，参数示例如下：
-
+```
+[oracle]$ cd /opt/database/response/
+[oracle]$ grep -Ev "^$|^#" db_install.rsp
+oracle.install.responseFileVersion=/oracle/install/rspfmt_dbinstall_response_schema_v11_2_0
+oracle.install.option=INSTALL_DB_AND_CONFIG
+ORACLE_HOSTNAME=oracledb
+UNIX_GROUP_NAME=oinstall
+INVENTORY_LOCATION=/opt/oraInventory
+SELECTED_LANGUAGES=en,zh_CN,zh_TW
+ORACLE_HOME=/opt/ora/product/11.2.0/db_1
+ORACLE_BASE=/opt/ora
+oracle.install.db.InstallEdition=EE
+oracle.install.db.isCustomInstall=true
+oracle.install.db.customComponents=oracle.server:11.2.0.1.0,oracle.sysman.ccr:10.2.7.0.0,oracle.xdk:11.2.0.1.0,oracle.rdbms.oci:11.2.0.1.0,oracle.network:11.2.0.1.0,oracle.network.listener:11.2.0.1.0,oracle.rdbms:11.2.0.1.0,oracle.options:11.2.0.1.0,oracle.rdbms.partitioning:11.2.0.1.0,oracle.oraolap:11.2.0.1.0,oracle.rdbms.dm:11.2.0.1.0,oracle.rdbms.dv:11.2.0.1.0,orcle.rdbms.lbac:11.2.0.1.0,oracle.rdbms.rat:11.2.0.1.0
+oracle.install.db.DBA_GROUP=dba
+oracle.install.db.OPER_GROUP=oinstall
+oracle.install.db.CLUSTER_NODES=
+oracle.install.db.config.starterdb.type=GENERAL_PURPOSE
+oracle.install.db.config.starterdb.globalDBName=orcl
+oracle.install.db.config.starterdb.SID=orcl
+oracle.install.db.config.starterdb.characterSet=AL32UTF8
+oracle.install.db.config.starterdb.memoryOption=true
+oracle.install.db.config.starterdb.memoryLimit=512
+oracle.install.db.config.starterdb.installExampleSchemas=false
+oracle.install.db.config.starterdb.enableSecuritySettings=true
+oracle.install.db.config.starterdb.password.ALL=gdtBD123
+oracle.install.db.config.starterdb.password.SYS=
+oracle.install.db.config.starterdb.password.SYSTEM=
+oracle.install.db.config.starterdb.password.SYSMAN=
+oracle.install.db.config.starterdb.password.DBSNMP=
+oracle.install.db.config.starterdb.control=DB_CONTROL
+oracle.install.db.config.starterdb.gridcontrol.gridControlServiceURL=
+oracle.install.db.config.starterdb.dbcontrol.enableEmailNotification=false
+oracle.install.db.config.starterdb.dbcontrol.emailAddress=
+oracle.install.db.config.starterdb.dbcontrol.SMTPServer=
+oracle.install.db.config.starterdb.automatedBackup.enable=false
+oracle.install.db.config.starterdb.automatedBackup.osuid=
+oracle.install.db.config.starterdb.automatedBackup.ospwd=
+oracle.install.db.config.starterdb.storageType=FILE_SYSTEM_STORAGE
+oracle.install.db.config.starterdb.fileSystemStorage.dataLocation=/opt/oradata
+oracle.install.db.config.starterdb.fileSystemStorage.recoveryLocation=/opt/fast_recovery_area
+oracle.install.db.config.asm.diskGroup=
+oracle.install.db.config.asm.ASMSNMPPassword=
+MYORACLESUPPORT_USERNAME=
+MYORACLESUPPORT_PASSWORD=
+SECURITY_UPDATES_VIA_MYORACLESUPPORT=
+DECLINE_SECURITY_UPDATES=true
+PROXY_HOST=
+PROXY_PORT=
+PROXY_USER=
+PROXY_PWD=
+```  
 3. 执行安装
 ```
 [oracle]$ cd /opt/database
@@ -234,13 +287,19 @@ SQL> grant connect,resource,dba to ISC;
 ## 相关命令
 
 1. 把某个用户改为 group(s)：  
-``` usermod -G groups loginname ```
+```
+usermod -G groups loginname
+```  
 
 2. 把用户添加进入某个组(s)：  
-``` usermod -a -G groups loginname ```  
+```
+usermod -a -G groups loginname
+```  
 
 3. 查看是否打开23端口：  
-``` netstat -an | grep 23 ```  
+```
+netstat -an | grep 23
+```  
 
 4. 开放端口：  
 (1) 开放端口命令： /sbin/iptables -I INPUT -p tcp --dport 1521 -j ACCEPT  
