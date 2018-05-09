@@ -313,30 +313,31 @@ netstat -an | grep 23
 5. 关闭防火墙和selinux  
 Redhat使用了SELinux来增强安全，关闭的办法为：  
 ```
-(1) 永久有效：  
-修改 /etc/selinux/config 文件中的 SELINUX="" 为 disabled ，然后重启。  
-(2) 即时生效：  
-setenforce 0  
+    (1) 永久有效：  
+    修改 /etc/selinux/config 文件中的 SELINUX="" 为 disabled ，然后重启。  
+    (2) 即时生效：  
+    setenforce 0  
 
-关闭防火墙的方法为：  
-(1) 永久性生效：  
-开启：chkconfig iptables on  
-关闭：chkconfig iptables off  
-(2) 即时生效，重启后失效  
-开启：service iptables start  
-关闭：service iptables stop  
+    关闭防火墙的方法为：  
+    (1) 永久性生效：  
+    开启：chkconfig iptables on  
+    关闭：chkconfig iptables off  
+    (2) 即时生效，重启后失效  
+    开启：service iptables start  
+    关闭：service iptables stop  
 
-补充：  
-a. 防火墙还需要关闭ipv6的防火墙：  
-chkconfig ip6tables off  
-并且可以通过如下命令查看状态：  
-chkconfig --list iptables  
+    补充：  
+    a. 防火墙还需要关闭ipv6的防火墙：  
+    chkconfig ip6tables off  
+    并且可以通过如下命令查看状态：  
+    chkconfig --list iptables  
 ```  
 
 6. 去掉DNS  
 连接数据库过慢：  
 可能的原因：每次连接数据库时，都需要进行DNS查询（根据IP查询主机名），但由于DNS服务器不可达（内网），所以只有等待超时，超时后才返回，导致连接库过慢。  
-解决：注释掉server上 /etc/resolv.conf中所有行
+解决：注释掉server上 /etc/resolv.conf中所有行  
+
 
 ## Oracle数据库常用命令  
 
