@@ -60,7 +60,6 @@ Spring xml头文件xmlns和xsi的意思
 ```
 xmlns:mvc="http://www.springframework.org/schema/mvc"
 ```  
-
 然后需要遵守的代码规范有：  
 ```
     http://www.springframework.org/schema/mvc
