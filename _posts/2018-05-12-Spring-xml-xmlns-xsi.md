@@ -1,8 +1,8 @@
 ---
 layout: post
 title:  "Spring xml头文件xmlns和xsi的意思"
-categories: Oracle
-tags:  Oracle
+categories: Spring
+tags:  Spring xml
 ---
 
 * content
