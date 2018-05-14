@@ -2,7 +2,7 @@
 layout: post
 title:  "CentOS 6.5 静默安装Oracle11g"
 categories: Oracle
-tags:  Oracle
+tags:  Oracle Linux
 ---
 
 * content
