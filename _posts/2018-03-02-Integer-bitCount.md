@@ -2,7 +2,7 @@
 layout: post
 title:  "Java 源码 Integer.bitCount"
 categories: Java
-tags:  Java 源码 Integer
+tags:  Java 源码 Integer 算法
 ---
 
 * content
