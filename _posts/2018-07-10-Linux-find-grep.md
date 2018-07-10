@@ -131,15 +131,15 @@ find命令把匹配到的文件传递给xargs命令，而xargs命令每次只获
 
 来看看xargs命令是如何同find命令一起使用的，并给出一些例子。
 
-find . -type f -print | xargs file 查找系统中的每一个普通文件，然后使用xargs命令来测试它们分别属于哪类文件
+find . -type f -print \| xargs file 查找系统中的每一个普通文件，然后使用xargs命令来测试它们分别属于哪类文件
 
-find / -name “core” -print | xargs echo “” >/tmp/core.log 在整个系统中查找内存信息转储文件(core dump) ，然后把结果保存到/tmp/core.log 文件中：
+find / -name “core” -print \| xargs echo “” >/tmp/core.log 在整个系统中查找内存信息转储文件(core dump) ，然后把结果保存到/tmp/core.log 文件中：
 
-find . -type f -print | xargs grep “hostname” 用grep命令在所有的普通文件中搜索hostname这个词
+find . -type f -print \| xargs grep “hostname” 用grep命令在所有的普通文件中搜索hostname这个词
 
-find ./ -mtime +3 -print|xargs rm -f –r 删除3天以前的所有东西 （find . -ctime +3 -exec rm -rf {} ;）
+find ./ -mtime +3 -print\|xargs rm -f –r 删除3天以前的所有东西 （find . -ctime +3 -exec rm -rf {} ;）
 
-find ./ -size 0 | xargs rm -f & 删除文件大小为零的文件
+find ./ -size 0 \| xargs rm -f & 删除文件大小为零的文件
 
 find命令配合使用exec和xargs可以使用户对所匹配到的文件执行几乎所有的命令。
 
@@ -155,7 +155,7 @@ grep [OPTIONS] PATTERN [FILE…]
 grep [OPTIONS] [-e PATTERN | -f FILE] [FILE…]
 ```
 
-grep命令用于搜索由Pattern参数指定的模式，并将每个匹配的行写入标准输出中。这些模式是具有限定的正则表达式，它们使用ed或egrep命令样式。如果在File参数中指定了多个名称，grep命令将显示包含匹配行的文件的名称。对 shell 有特殊含义的字符 ($, \*, [, |, ^, (, ), ) 出现在 Pattern参数中时必须带双引号。
+grep命令用于搜索由Pattern参数指定的模式，并将每个匹配的行写入标准输出中。这些模式是具有限定的正则表达式，它们使用ed或egrep命令样式。如果在File参数中指定了多个名称，grep命令将显示包含匹配行的文件的名称。对 shell 有特殊含义的字符 ($, \*, [, \|, ^, (, ), ) 出现在 Pattern参数中时必须带双引号。
 
 如果 Pattern参数不是简单字符串，通常必须用单引号将整个模式括起来。在诸如 [a-z], 之类的表达式中，-（减号）cml 可根据当前正在整理的序列来指定一个范围。整理序列可以定义等价的类以供在字符范围中使用。如果未指定任何文件，grep会假定为标准输入。
 
@@ -235,7 +235,7 @@ b  单词锁定符，如: ‘bgrepb’只匹配grep，即只能是grep这个单�
 
 =====
 
-ls -l | grep ‘^a’ 通过管道过滤ls -l输出的内容，只显示以a开头的行。
+ls -l \| grep ‘^a’ 通过管道过滤ls -l输出的内容，只显示以a开头的行。
 
 grep ‘test’ d* 显示所有以d开头的文件中包含test的行。
 
@@ -255,9 +255,9 @@ grep -w pattern files ：只匹配整个单词，而不是字符串的一部分(
 
 grep -C number pattern files ：匹配的上下文分别显示[number]行，
 
-grep pattern1 | pattern2 files ：显示匹配 pattern1 或 pattern2 的行，
+grep pattern1 \| pattern2 files ：显示匹配 pattern1 或 pattern2 的行，
 
-grep pattern1 files | grep pattern2 ：显示既匹配 pattern1 又匹配 pattern2 的行。
+grep pattern1 files \| grep pattern2 ：显示既匹配 pattern1 又匹配 pattern2 的行。
 
 
 ### 参考文献：
