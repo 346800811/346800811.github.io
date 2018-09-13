@@ -58,7 +58,7 @@ tags:  Java
     }
 ```
 
-定义一个老师对象，实现Callback接口：
+定义一个老师对象，实现Callback接口：333
 
 ```java
     /**
