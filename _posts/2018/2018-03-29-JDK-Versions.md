@@ -90,11 +90,11 @@ Java 各版本新增的主要特性
 
 1. 对Java集合（Collections）的增强支持，可直接采用[]、{}的形式存入对象，采用[]的形式按照索引、键值来获取集合中的对象。如：
 ```java
-List<String>list=[“item1”,”item2”];//存
-Stringitem=list[0];//直接取
-Set<String>set={“item1”,”item2”,”item3”};//存
-Map<String,Integer> map={“key1”:1,”key2”:2};//存
-Intvalue=map[“key1”];//取
+List<String> list = ["item1","item2"]; //存
+String item = list[0]; //直接取
+Set<String> set = {"item1","item2","item3"}; //存
+Map<String,Integer> map = {"key1":1,"key2":2}; //存
+int value = map["key1"]; //取
 ```
 
 2. 在Switch中可用String
